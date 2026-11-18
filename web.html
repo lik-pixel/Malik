@@ -1,18 +1,1288 @@
 <!DOCTYPE html>
 <html lang="id">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, inital-scale=1.0">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Buku Kas</title>
+<title>Buku Kas SOCIANATA XII</title>
 
-    <style>
+<style>
 
-      *{
-        margin:0;
-        padding:0;
-        box-sizing:border-box;
-        font-family:sans-serif;
-      }
-    </style>
-  </head>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:sans-serif;
+}
+
+body{
+background:#eef2f7;
+padding:20px;
+color:#111827;
+overflow-x:hidden;
+}
+
+/* LOADING */
+
+.loading{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:linear-gradient(135deg,#2563eb,#1d4ed8);
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:38px;
+font-weight:bold;
+color:white;
+z-index:99999;
+animation:hilang 3s forwards;
+}
+
+@keyframes hilang{
+0%{opacity:1;}
+80%{opacity:1;}
+100%{
+opacity:0;
+visibility:hidden;
+}
+}
+
+/* CARD */
+
+.container{
+max-width:1200px;
+margin:auto;
+}
+
+.card{
+background:white;
+padding:25px;
+border-radius:30px;
+margin-bottom:25px;
+box-shadow:0 10px 25px rgba(0,0,0,0.08);
+}
+
+/* HEADER */
+
+.header{
+background:linear-gradient(135deg,#0f4fd6,#2563eb);
+color:white;
+padding:35px;
+border-radius:35px;
+position:relative;
+overflow:visible;
+}
+
+.header h1{
+font-size:55px;
+line-height:1;
+margin-bottom:20px;
+}
+
+.header p{
+font-size:20px;
+}
+
+/* MENU */
+
+.menu-btn{
+position:absolute;
+right:30px;
+top:30px;
+
+width:58px;
+height:58px;
+
+border-radius:18px;
+background:white;
+border:none;
+
+font-size:22px;
+font-weight:bold;
+color:#2563eb;
+
+cursor:pointer;
+
+display:none;
+justify-content:center;
+align-items:center;
+
+box-shadow:0 8px 20px rgba(0,0,0,0.15);
+
+padding:0;
+line-height:1;
+}
+
+.dropdown{
+position:absolute;
+top:105px;
+right:30px;
+background:white;
+width:230px;
+border-radius:25px;
+padding:15px;
+display:none;
+box-shadow:0 10px 30px rgba(0,0,0,0.15);
+z-index:1000;
+animation:munculMenu .2s ease;
+}
+
+@keyframes munculMenu{
+from{
+opacity:0;
+transform:translateY(-10px);
+}
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
+
+.dropdown button{
+width:100%;
+padding:15px;
+border:none;
+background:#f3f4f6;
+border-radius:18px;
+margin-bottom:10px;
+font-size:18px;
+color:black;
+text-align:left;
+cursor:pointer;
+}
+
+.dropdown button:hover{
+background:#e5e7eb;
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+.header h1{
+font-size:35px;
+}
+
+.menu-btn{
+width:52px;
+height:52px;
+font-size:20px;
+right:20px;
+top:20px;
+border-radius:16px;
+}
+
+.dropdown{
+right:20px;
+top:90px;
+width:200px;
+}
+
+}
+
+/* INPUT */
+
+input,select{
+width:100%;
+padding:18px;
+margin-top:15px;
+border-radius:20px;
+border:1px solid #d1d5db;
+font-size:18px;
+}
+
+button{
+padding:15px 25px;
+border:none;
+border-radius:18px;
+background:#2563eb;
+color:white;
+cursor:pointer;
+margin-top:15px;
+font-size:18px;
+}
+
+button:hover{
+opacity:0.9;
+}
+
+/* FLEX */
+
+.flex{
+display:flex;
+gap:20px;
+flex-wrap:wrap;
+}
+
+.flex .card{
+flex:1;
+min-width:250px;
+}
+
+/* TABLE */
+
+table{
+width:100%;
+border-collapse:collapse;
+margin-top:20px;
+}
+
+th{
+background:#2563eb;
+color:white;
+padding:15px;
+}
+
+td{
+padding:15px;
+border-bottom:1px solid #e5e7eb;
+text-align:center;
+}
+
+/* STATUS */
+
+.status-lunas{
+background:#22c55e;
+color:white;
+padding:6px 14px;
+border-radius:30px;
+}
+
+.status-menunggak{
+background:#ef4444;
+color:white;
+padding:6px 14px;
+border-radius:30px;
+}
+
+/* POPUP */
+
+.overlay{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.45);
+display:none;
+justify-content:center;
+align-items:center;
+z-index:9999;
+padding:20px;
+}
+
+.popup{
+background:white;
+width:100%;
+max-width:380px;
+border-radius:35px;
+padding:35px;
+text-align:center;
+animation:muncul .2s ease;
+}
+
+@keyframes muncul{
+from{
+transform:scale(0.8);
+opacity:0;
+}
+to{
+transform:scale(1);
+opacity:1;
+}
+}
+
+.popup h2{
+font-size:35px;
+margin-bottom:15px;
+}
+
+.popup p{
+font-size:20px;
+margin-bottom:20px;
+line-height:1.5;
+}
+
+.popup button{
+width:100%;
+}
+
+/* PASSWORD */
+
+#adminPasswordInput{
+font-size:20px;
+padding:18px;
+border-radius:18px;
+border:1px solid #d1d5db;
+outline:none;
+}
+
+#adminPasswordInput:focus{
+border:2px solid #2563eb;
+box-shadow:0 0 15px rgba(37,99,235,0.2);
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+.header h1{
+font-size:35px;
+}
+
+.menu-btn{
+width:78px;
+height:78px;
+font-size:38px;
+border-radius:24px;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- LOADING -->
+
+<div class="loading">
+SOCIANATA XII
+</div>
+
+<!-- POPUP REMINDER -->
+
+<div class="overlay" id="popupReminder">
+
+<div class="popup">
+
+<h2>💸 Reminder Kas</h2>
+
+<p>
+Jangan lupa bayar kas mingguan ya 😊
+</p>
+
+<button onclick="tutupReminder()">
+Oke
+</button>
+
+</div>
+
+</div>
+
+<!-- POPUP PROFIL -->
+
+<div class="overlay" id="popupProfil">
+
+<div class="popup">
+
+<h2>👤 Profil</h2>
+
+<p id="isiProfil"></p>
+
+<button onclick="tutupProfil()">
+Tutup
+</button>
+
+</div>
+
+</div>
+
+<!-- POPUP ADMIN -->
+
+<div class="overlay" id="popupAdmin">
+
+<div class="popup">
+
+<h2>🚫 Akses Ditolak</h2>
+
+<p>
+Kamu bukan admin/bendahara 😭
+</p>
+
+<button onclick="tutupAdmin()">
+Oke
+</button>
+
+</div>
+
+</div>
+
+<!-- POPUP PASSWORD -->
+
+<div class="overlay" id="popupPassword">
+
+<div class="popup">
+
+<h2>🔒 Login Admin</h2>
+
+<p>
+Masukkan password bendahara
+</p>
+
+<input
+type="password"
+id="adminPasswordInput"
+placeholder="Password admin">
+
+<button onclick="cekPasswordAdmin()">
+Masuk
+</button>
+
+<button
+onclick="tutupPasswordAdmin()"
+style="background:#e5e7eb;color:black;">
+Batal
+</button>
+
+</div>
+
+</div>
+
+<div class="container">
+
+<!-- HEADER -->
+
+<div class="header">
+
+<h1>
+Buku Kas<br>
+SOCIANATA XII
+</h1>
+
+<p id="infoLogin">
+Belum Login
+</p>
+
+<button
+class="menu-btn"
+id="menuBtn"
+onclick="toggleMenu()">
+☰
+</button>
+
+<div class="dropdown" id="dropdownMenu">
+
+<button onclick="lihatProfil()">
+👤 Profil
+</button>
+
+<button onclick="logout()">
+🚪 Logout
+</button>
+
+</div>
+
+</div>
+
+<!-- LOGIN -->
+
+<div class="card" id="loginPage">
+
+<h2 style="font-size:55px;">
+Login
+</h2>
+
+<select id="role">
+
+<option value="siswa">
+Siswa
+</option>
+
+<option value="admin">
+Admin/Bendahara
+</option>
+
+</select>
+
+<select id="namaLogin"></select>
+
+<button onclick="login()">
+Login
+</button>
+
+</div>
+
+<!-- MAIN -->
+
+<div id="mainPage" style="display:none;">
+
+<div class="flex">
+
+<div class="card">
+<h2>Total Uang Masuk</h2>
+<h1 id="uangMasuk">Rp 0</h1>
+</div>
+
+<div class="card">
+<h2>Total Uang Keluar</h2>
+<h1 id="uangKeluar">Rp 0</h1>
+</div>
+
+<div class="card">
+<h2>Saldo Saat Ini</h2>
+<h1 id="saldo">Rp 0</h1>
+</div>
+
+</div>
+
+<!-- ADMIN -->
+
+<div class="card"
+id="adminPanel"
+style="display:none;">
+
+<h2>Tambah Transaksi</h2>
+
+<input type="date" id="tanggal">
+
+<input
+type="week"
+id="mingguKas"
+onchange="renderSiswa();renderRekap();">
+
+<select id="jenis">
+<option value="masuk">Uang Masuk</option>
+<option value="keluar">Uang Keluar</option>
+</select>
+
+<select id="kategori">
+<option>Kas Mingguan</option>
+<option>Denda</option>
+<option>Perlengkapan</option>
+</select>
+<select id="namaPembayar"></select>
+
+<input
+type="number"
+id="nominal"
+placeholder="Nominal">
+
+<input
+type="text"
+id="keterangan"
+placeholder="Keterangan">
+
+<button onclick="tambahKas()">
+Tambah
+</button>
+
+<button onclick="exportPDF()">
+Export PDF
+</button>
+
+</div>
+
+<!-- RIWAYAT -->
+
+<div class="card">
+
+<h2>Riwayat Transaksi</h2>
+
+<div style="overflow:auto;">
+
+<table>
+
+<thead>
+
+<tr>
+<th>No</th>
+<th>Tanggal</th>
+<th>Minggu</th>
+<th>Jenis</th>
+<th>Kategori</th>
+<th>Nominal</th>
+<th>Keterangan</th>
+</tr>
+
+</thead>
+
+<tbody id="tabelKas"></tbody>
+
+</table>
+
+</div>
+
+</div>
+
+<!-- SISWA -->
+
+<div class="card">
+
+<h2>Manajemen Anggota</h2>
+
+<input
+type="text"
+id="searchNama"
+placeholder="Cari nama siswa..."
+style="
+width:100%;
+padding:12px;
+margin:15px 0;
+border-radius:10px;
+border:1px solid #ccc;
+font-size:16px;
+"
+/>
+
+<div style="overflow:auto;">
+
+<table>
+
+<thead>
+
+<tr>
+<th>Nama</th>
+<th>Target</th>
+<th>Bayar Minggu Ini</th>
+<th>Status</th>
+<th>Aksi</th>
+</tr>
+
+</thead>
+
+<tbody id="tabelSiswa"></tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<script type="module">
+
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+import {
+getFirestore,
+doc,
+setDoc,
+onSnapshot
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const firebaseConfig = {
+
+apiKey: "AIzaSyAHBi1m6ZSIxbP221uaoegCnKJ_NIdhv6A",
+
+authDomain: "buku-kas-socianata-94710.firebaseapp.com",
+
+projectId: "buku-kas-socianata-94710",
+
+storageBucket: "buku-kas-socianata-94710.firebasestorage.app",
+
+messagingSenderId: "913236625970",
+
+appId: "1:913236625970:web:88967d24825422302a0a2b"
+
+};
+
+const app = initializeApp(firebaseConfig);
+
+const db = getFirestore(app);
+
+let kasData=[];
+
+let siswa=[
+
+"Malik","Iqbal","Gabrielle","Shakila","Tasya",
+"Zhara","Fauzi","Yadzkan","Aulia","Alysa",
+"Camah","Mia","Reysa","Hasby","Djarrod",
+"Arfa","Anissa","Intan","Bilqis","Cahaya",
+"Evan","Faiz","Rifat","Allyfa","Desy",
+"Salsa","Shela"
+
+].map(nama=>({
+nama:nama,
+dibayar:0,
+riwayat:{}
+}));
+
+const adminList=[
+"Allyfa",
+"Salsa"
+];
+
+let currentUser="";
+let currentRole="";
+
+const targetKas=5000;
+
+const namaLogin=
+document.getElementById("namaLogin");
+const namaPembayar =
+document.getElementById("namaPembayar");
+
+siswa.forEach(s=>{
+
+namaLogin.innerHTML +=
+<option>${s.nama}</option>;
+
+namaPembayar.innerHTML +=
+<option>${s.nama}</option>;
+
+});
+
+/* AUTO TANGGAL */
+
+document.getElementById("tanggal").value=
+new Date().toISOString().split("T")[0];
+
+/* AUTO MINGGU */
+
+function getCurrentWeek(){
+
+const now=new Date();
+
+const onejan=
+new Date(now.getFullYear(),0,1);
+
+const week=
+Math.ceil(
+(
+(
+(now-onejan)/86400000
+)+onejan.getDay()+1
+)/7
+);
+
+return ${now.getFullYear()}-W${week};
+
+}
+
+document.getElementById("mingguKas").value=
+getCurrentWeek();
+
+/* LOGIN */
+
+window.login=function(){
+
+currentRole=
+document.getElementById("role").value;
+
+currentUser=
+document.getElementById("namaLogin").value;
+
+if(currentRole=="admin"){
+
+if(!adminList.includes(currentUser)){
+
+document.getElementById("popupAdmin")
+.style.display="flex";
+
+return;
+
+}
+
+document.getElementById("popupPassword")
+.style.display="flex";
+
+return;
+
+}
+
+masukKeWeb();
+
+}
+
+/* PASSWORD ADMIN */
+
+window.cekPasswordAdmin=function(){
+
+const password=
+document.getElementById("adminPasswordInput").value;
+
+const adminPassword="socianata123";
+
+if(password!==adminPassword){
+
+document.getElementById("adminPasswordInput")
+.style.border="2px solid red";
+
+document.getElementById("adminPasswordInput")
+.value="";
+
+document.getElementById("adminPasswordInput")
+.placeholder="Password salah 😭";
+
+return;
+
+}
+
+document.getElementById("popupPassword")
+.style.display="none";
+
+masukKeWeb();
+
+}
+
+/* MASUK WEB */
+
+function masukKeWeb(){
+
+document.getElementById("loginPage")
+.style.display="none";
+
+document.getElementById("mainPage")
+.style.display="block";
+
+document.getElementById("menuBtn")
+.style.display="flex";
+
+document.getElementById("infoLogin")
+.innerHTML=
+Login sebagai : <b>${currentRole}</b> | ${currentUser};
+
+if(currentRole!="admin"){
+
+document.getElementById("popupReminder")
+.style.display="flex";
+
+}
+
+if(adminList.includes(currentUser)){
+
+document.getElementById("adminPanel")
+.style.display="block";
+
+}
+
+renderKas();
+renderSiswa();
+renderRekap();
+
+}
+
+/* MENU */
+
+window.toggleMenu=function(){
+
+const menu=
+document.getElementById("dropdownMenu");
+
+menu.style.display=
+menu.style.display=="block"
+?"none"
+:"block";
+
+}
+
+/* PROFIL */
+
+window.lihatProfil=function(){
+
+document.getElementById("popupProfil")
+.style.display="flex";
+
+document.getElementById("isiProfil")
+.innerHTML=
+`
+<b>Nama :</b> ${currentUser}
+<br><br>
+<b>Role :</b> ${currentRole}
+`;
+
+}
+
+/* CLOSE */
+
+window.tutupProfil=function(){
+document.getElementById("popupProfil")
+.style.display="none";
+}
+
+window.tutupReminder=function(){
+document.getElementById("popupReminder")
+.style.display="none";
+}
+
+window.tutupAdmin=function(){
+document.getElementById("popupAdmin")
+.style.display="none";
+}
+
+window.tutupPasswordAdmin=function(){
+document.getElementById("popupPassword")
+.style.display="none";
+}
+
+/* LOGOUT */
+
+window.logout=function(){
+location.reload();
+}
+
+/* TAMBAH KAS */
+
+window.tambahKas=async function(){
+
+const minggu=
+document.getElementById("mingguKas").value;
+
+const data={
+
+tanggal:
+document.getElementById("tanggal").value,
+
+minggu:minggu,
+
+jenis:
+document.getElementById("jenis").value,
+
+kategori:
+document.getElementById("kategori").value,
+
+nama:
+document.getElementById("namaPembayar").value,
+
+nominal:Number(
+document.getElementById("nominal").value
+),
+
+keterangan:
+document.getElementById("keterangan").value
+
+};
+
+kasData.push(data);
+
+if(data.jenis=="masuk"){
+
+let namaBayar =
+document.getElementById("namaPembayar").value;
+
+let cari=
+siswa.find(
+s=>s.nama==namaBayar
+);
+
+if(cari){
+
+cari.dibayar+=data.nominal;
+
+if(!cari.riwayat[minggu]){
+cari.riwayat[minggu]=0;
+}
+
+cari.riwayat[minggu]+=data.nominal;
+
+}
+
+}
+
+await simpanData();
+
+renderKas();
+renderSiswa();
+
+}
+
+/* RENDER KAS */
+
+function renderKas(){
+
+let masuk=0;
+let keluar=0;
+
+document.getElementById("tabelKas")
+.innerHTML="";
+
+const mingguSekarang =
+document.getElementById("mingguKas").value;
+
+kasData
+.filter(k => k.minggu === mingguSekarang)
+.forEach((k,i)=>{
+
+if(k.jenis=="masuk"){
+masuk+=k.nominal;
+}else{
+keluar+=k.nominal;
+}
+
+document.getElementById("tabelKas")
+.innerHTML+=`
+
+<tr>
+
+<td>${i+1}</td>
+
+<td>${k.tanggal}</td>
+
+<td>${k.minggu}</td>
+
+<td>${k.jenis}</td>
+
+<td>${k.kategori}</td>
+
+<td>
+Rp ${k.nominal.toLocaleString()}
+</td>
+
+<td>${k.keterangan}</td>
+
+</tr>
+
+`;
+
+});
+
+document.getElementById("uangMasuk")
+.innerHTML=
+Rp ${masuk.toLocaleString()};
+
+document.getElementById("uangKeluar")
+.innerHTML=
+Rp ${keluar.toLocaleString()};
+
+document.getElementById("saldo")
+.innerHTML=
+Rp ${(masuk-keluar).toLocaleString()};
+
+}
+
+/* RENDER SISWA */
+
+function renderSiswa(){
+
+document.getElementById("tabelSiswa")
+.innerHTML="";
+
+const mingguSekarang =
+document.getElementById("mingguKas").value;
+
+const keyword =
+document.getElementById("searchNama")?.value
+.toLowerCase() || "";
+
+siswa
+.filter(s => {
+
+return (s.nama || "")
+.toLowerCase()
+.includes(keyword);
+
+})
+.forEach((s,index)=>{
+
+let bayarMinggu =
+s.riwayat?.[mingguSekarang] || 0;
+
+let status=
+bayarMinggu>=targetKas
+
+?'<span class="status-lunas">Lunas</span>'
+
+:'<span class="status-menunggak">Menunggak</span>';
+
+let aksi = "Read Only";
+
+document.getElementById("tabelSiswa")
+.innerHTML+=`
+
+<tr>
+
+<td>${s.nama}</td>
+
+<td>
+Rp ${targetKas.toLocaleString()}
+</td>
+
+<td>
+Rp ${bayarMinggu.toLocaleString()}
+</td>
+
+<td>${status}</td>
+
+<td>${aksi}</td>
+
+</tr>
+
+`;
+
+});
+
+}
+
+/* EDIT */
+
+window.editSiswa=async function(index){
+
+let bayar=prompt(
+"Masukkan nominal baru",
+siswa[index].dibayar
+);
+
+if(bayar!=null){
+
+siswa[index].dibayar=
+Number(bayar);
+
+await simpanData();
+
+renderSiswa();
+
+}
+
+}
+
+/* FIREBASE */
+
+async function simpanData(){
+
+await setDoc(
+doc(db,"kas","data"),
+{
+kasData:kasData,
+siswa:siswa
+}
+);
+
+}
+
+/* REALTIME FIREBASE */
+
+const docRef = doc(db,"kas","data");
+
+onSnapshot(docRef,(docSnap)=>{
+
+if(docSnap.exists()){
+
+kasData =
+docSnap.data().kasData || [];
+
+siswa =
+docSnap.data().siswa || [];
+
+}
+});
+
+document
+.getElementById("mingguKas")
+.addEventListener("change",()=>{
+
+renderKas();
+renderSiswa();
+
+});
+
+document
+.getElementById("searchNama")
+.addEventListener("input",()=>{
+
+renderSiswa();
+
+});
+/* EXPORT PDF */
+
+window.exportPDF=async function(){
+
+const { jsPDF } = window.jspdf;
+
+const canvas=
+await html2canvas(document.body);
+
+const imgData=
+canvas.toDataURL("image/png");
+
+const pdf=
+new jsPDF("p","mm","a4");
+
+const width=190;
+
+const height=
+(canvas.height*width)
+/canvas.width;
+
+pdf.addImage(
+imgData,
+"PNG",
+10,
+10,
+width,
+height
+);
+
+pdf.save("BukuKasSOCIANATA.pdf");
+
+}
+
+/* REKAP BULANAN */
+
+function renderRekapBulanan(){
+
+let html="";
+
+const bulanSekarang =
+new Date().getMonth()+1;
+
+siswa.forEach(s=>{
+
+let totalBayar=0;
+
+kasData.forEach(k=>{
+
+const bulanData =
+new Date(k.tanggal).getMonth()+1;
+
+if(
+k.jenis=="masuk" &&
+k.nama==s.nama &&
+bulanData==bulanSekarang
+)
+{
+totalBayar+=k.nominal;
+}
+
+});
+
+let targetBulanan =
+targetKas * 4;
+
+let tunggakan =
+targetBulanan-totalBayar;
+
+if(tunggakan<0){
+tunggakan=0;
+}
+
+html+=`
+
+<tr>
+
+<td>${s.nama}</td>
+
+<td>
+Rp ${totalBayar.toLocaleString()}
+</td>
+
+<td>
+Rp ${tunggakan.toLocaleString()}
+</td>
+
+</tr>
+
+`;
+
+});
+
+document.getElementById("tabelRekap")
+.innerHTML=html;
+
+}
+</script>
+
+</body>
+</html>
